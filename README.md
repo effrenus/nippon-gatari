@@ -1,0 +1,1 @@
+Origin: http://www.nippon-gatari.info/sostavnye-glagoly-yaponskogo-yazyka-spravochnik

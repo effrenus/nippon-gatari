@@ -1,0 +1,478 @@
+[
+  {
+    "in_kanji": "仰ぎ見る",
+    "in_kana": "あおぎみる",
+    "definitions": [
+      "смотреть вверх, досл. смотреть в рот, ловить каждое слово, почитать кого-то"
+    ],
+    "struct_parts": ["仰ぐ", "見る"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私は彼を師匠と仰ぎ見ている。",
+        "in_kana": "わたしはかれをししょうと仰ぎ見ている。",
+        "translation": "Чту его как своего учителя."
+      }
+    ]
+  },
+  {
+    "in_kanji": "煽り立てる",
+    "in_kana": "あおりたてる",
+    "definitions": ["раздувать ссору, побуждать к чему-то"],
+    "struct_parts": ["煽る", "立てる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "組合の指導者たちは賃上げ要求をあおりたてた。",
+        "in_kana": "くみあいのしどうしゃたちはちんあげようきゅうをあおりたてた。",
+        "translation": "Представители профсоюза призвали к повышению зарплат."
+      }
+    ]
+  },
+  {
+    "in_kanji": "上がり込む",
+    "in_kana": "あがりこむ",
+    "definitions": ["заходить, вваливаться (в чужой дом)"],
+    "struct_parts": ["上がる", "込む"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "友達が無遠慮に家に上がり込んだ",
+        "in_kana": "ともだちがぶえんりょうにいえに上がり込んだ",
+        "translation": "Друзья нагло и грубо ввалились в дом"
+      }
+    ]
+  },
+  {
+    "in_kanji": "呆れ入る",
+    "in_kana": "あきれいる",
+    "definitions": ["быть в изумлении, быть в иступлении"],
+    "struct_parts": ["呆れる", "入る"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "彼の嘘に呆れ入った",
+        "in_kana": "かれのうそに呆れ入った",
+        "translation": "я был поражен его лжи"
+      }
+    ]
+  },
+  {
+    "in_kanji": "呆れ返る",
+    "in_kana": "あきれかえる",
+    "definitions": ["быть очень пораженным какому-то факту"],
+    "struct_parts": ["呆れる", "返る"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "私は彼女のわがままな態度に呆れ返った",
+        "in_kana": "私はかのじょのわがままなたいどに呆れ返った",
+        "translation": "Я очень изумился ее эгоистическому поведению"
+      }
+    ]
+  },
+  {
+    "in_kanji": "呆れ果てる",
+    "in_kana": "あきれはてる",
+    "definitions": ["быть ошарашенным, изумлению нет предела"],
+    "struct_parts": ["呆れる", "果てる"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "父親は息子の態度に呆れ果てた",
+        "in_kana": "ちちおやはむすこのたいどに呆れ果てた",
+        "translation": "Изумлению отца по поводу поведения сына конца и края не было"
+      }
+    ]
+  },
+  {
+    "in_kanji": "開け放す",
+    "in_kana": "あけはなす",
+    "definitions": ["открывать настежь, распахивать"],
+    "struct_parts": ["開ける", "放す"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私はドアを開け放した",
+        "in_kana": "私はドアを開け放した",
+        "translation": "Я распахнул дверь"
+      }
+    ]
+  },
+  {
+    "in_kanji": "開け広げる",
+    "in_kana": "あけひろげる",
+    "definitions": [
+      "раскрывать, разверзать, открывать общественности и так далее"
+    ],
+    "struct_parts": ["開ける", "広げる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼はドアを開け広げて、荷物を部屋の中に運んだ",
+        "in_kana": "かれはドアをあけひろげて、にもつをへやのなかにはこんだ",
+        "translation": "Он, открыв дверь ввалил в комнату пожитки"
+      }
+    ]
+  },
+  {
+    "in_kanji": "明け渡す",
+    "in_kana": "あけわたす",
+    "definitions": [
+      "освобождать офис или помещение, сдавать город или крепость"
+    ],
+    "struct_parts": ["明ける", "渡す"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "王子が町を敵に明け渡した",
+        "in_kana": "おうじがまちをてきに明け渡した",
+        "translation": "Принц отдал город врагу"
+      }
+    ]
+  },
+  {
+    "in_kanji": "嘲り笑う",
+    "in_kana": "あざけりわらう",
+    "definitions": ["высмеять, насмехаться"],
+    "struct_parts": ["嘲る", "笑う"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼は、友達に嘲り笑われた",
+        "in_kana": "彼は、ともだちに嘲り笑われた",
+        "translation": "Над ним глумились его дружки"
+      }
+    ]
+  },
+  {
+    "in_kanji": "預け入れる",
+    "in_kana": "あずけいれる",
+    "definitions": ["вносить деньги в банк"],
+    "struct_parts": ["預ける", "入れる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私は貯金を銀行に預け入れた",
+        "in_kana": "私はちょきんをぎんこうに預け入れた",
+        "translation": "Я положил деньги в банк на депозит"
+      }
+    ]
+  },
+  {
+    "in_kanji": "遊び暮らす",
+    "in_kana": "あそびくらす",
+    "definitions": ["Вести праздную жизнь"],
+    "struct_parts": ["遊ぶ", "暮らす"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "私は大学２年間を遊び暮らした",
+        "in_kana": "私はだいがく２ねんかんを遊び暮らした",
+        "translation": "Я 2 года гоняла балду в универе"
+      }
+    ]
+  },
+
+  {
+    "in_kanji": "遊び戯れる",
+    "in_kana": "あそびたわむれる",
+    "definitions": ["резвиться, играть"],
+    "struct_parts": ["遊ぶ", "戯れる"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "子供たちが公園で遊び戯れていた",
+        "in_kana": "こどもたちがこうえんで遊び戯れていた",
+        "translation": "Дети резвились в парке"
+      }
+    ]
+  },
+  {
+    "in_kanji": "当たり散らす",
+    "in_kana": "あたりちらす",
+    "definitions": ["срываться, вымещать гнев, набрасываться на всех подряд"],
+    "struct_parts": ["当たる", "散らす"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "彼は友達や家族に当り散らした",
+        "in_kana": "彼はともだちやかぞくに当り散らした",
+        "translation": "Он набрасывался и на своих друзей, и на свою семью"
+      }
+    ]
+  },{
+    "in_kanji": "当て擦る",
+    "in_kana": "あてこする",
+    "definitions": ["косвенно намекать, иронизировать"],
+    "struct_parts": ["当たる", "擦る"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼は彼女の成績の良さを当てこすった",
+        "in_kana": "彼はかのじょのせいせきのよさを当てこすった",
+        "translation": "Он подтрунивает над ее успехами и достижениями"
+      }
+    ]
+  },{
+    "in_kanji": "当て込む",
+    "in_kana": "あてこむ",
+    "definitions": ["надеяться, расчитывать, предвкушать"],
+    "struct_parts": ["当たる", "込む"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼は今月のボーナスを当て込んでいた",
+        "in_kana": "彼は今月のボーナスを当て込んでいた",
+        "translation": "Он предвкушал премии в этом месяце"
+      }
+    ]
+  },{
+    "in_kanji": "当てはまる",
+    "in_kana": "あてはまる",
+    "definitions": ["быть применимым о правиле, быть прикладным, подойти (о ключе, правиле, условиям или одежде), соотвествовать категории"],
+    "struct_parts": ["当たる", "はまる"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "この教訓はすべての人々に当てはまる",
+        "in_kana": "このきょうくんはすべての人々に当てはまる",
+        "translation": "На этот тренинг подходят все люди"
+      }
+    ]
+  },{
+    "in_kanji": "当てはめる",
+    "in_kana": "あてはめる",
+    "definitions": ["подгонять, пригонять, прилаживать, прикладывать, использовать навык, приспосабливать что-то подо что-то"],
+    "struct_parts": ["当たる", "はめる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私は計算に数字を当てはめた",
+        "in_kana": "私はけいさんにすうじを当てはめた",
+        "translation": "Я подогнал цифры под расчеты"
+      }
+    ]
+  },{
+    "in_kanji": "暴き出す",
+    "in_kana": "あばきだす",
+    "definitions": ["разбушеваться, разбуяниться, наседать (особенно с вопросами), перетирать кости"],
+    "struct_parts": ["暴く", "出す"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "その記者が事件の真相を暴き出した",
+        "in_kana": "そのきしゃがじけんのしんそうを暴き出した",
+        "translation": "Журналисты буянили и перетирали кости по поводу правды по случившемуся преступлению"
+      }
+    ]
+  },{
+    "in_kanji": "暴れ込む",
+    "in_kana": "あばれこむ",
+    "definitions": ["врываться на чью-то территорию силой"],
+    "struct_parts": ["暴れる", "込む"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "犯人がその店に暴れ込んだ",
+        "in_kana": "はんにんがそのみせに暴れ込んだ",
+        "translation": "преступник ворвался в заведение"
+      }
+    ]
+  },{
+    "in_kanji": "暴れ回る",
+    "in_kana": "あばれまわる",
+    "definitions": ["буйствовать, свирепствовать"],
+    "struct_parts": ["暴れる", "回る"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "暴走族は夜中に街中を暴れ回った",
+        "in_kana": "ぼうそうぞくはよなかに街中を暴れ回った",
+        "translation": "Мотоциклисткая шпана  буйствовала на улицах города посреди ночи"
+      }
+    ]
+  },{
+    "in_kanji": "浴びせ掛ける",
+    "in_kana": "あびせかける",
+    "definitions": ["крепко выругать, выразиться непечатным языком"],
+    "struct_parts": ["浴びせる", "掛ける"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "観客は選手に野次を浴びせ掛けた",
+        "in_kana": "かんきゃくはせんしゅにやじを浴びせ掛けた",
+        "translation": "Публика неприятным гигиканьем выругала спортсмена"
+      }
+    ]
+  },{
+    "in_kanji": "あぶり出す",
+    "in_kana": "あぶりだす",
+    "definitions": ["поджаривать (в прям. и перен. смысле)"],
+    "struct_parts": ["あぶる", "出す"],
+    "struct_type": "VV",
+    "transitivity_type": "tr"
+  },{
+    "in_kanji": "あふれ返る",
+    "in_kana": "あふれかえる",
+    "definitions": ["быть полным-полно чего-либо, снувать туда-сюда"],
+    "struct_parts": ["あふれる", "返る"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "駅前はタクシー待ちの人たちであふれ返っていた",
+        "in_kana": "えきまえはタクシーまちのひとたちであふれ返っていた",
+        "translation": "Люди заполнили всю площадь перед станцией, в ожидании такси"
+      }
+    ]
+  },{
+    "in_kanji": "あふれ出す",
+    "in_kana": "あふれだす",
+    "definitions": ["быть переполненным, начинать переволняться"],
+    "struct_parts": ["あふれる", "出す"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "水がバケツからあふれ出した",
+        "in_kana": "水がバケツからあふれ出した",
+        "translation": "Вода переполнила ведро"
+      }
+    ]
+  },{
+    "in_kanji": "編み上げる",
+    "in_kana": "あみあげる",
+    "definitions": ["Заканчивать вязание, завязать"],
+    "struct_parts": ["編む", "上げる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼女はマフラーを編み上げた",
+        "in_kana": "彼女はマフラーを編み上げた",
+        "translation": "Она закончила вязать шарф"
+      }
+    ]
+  },{
+    "in_kanji": "編み上がる",
+    "in_kana": "あみあがる",
+    "definitions": ["Заканчиваться о вязании, быть связаным"],
+    "struct_parts": ["編む", "上がる"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "セーターが編み上がった",
+        "in_kana": "セーターが編み上がった",
+        "translation": "Свитер связан"
+      }
+    ]
+  },{
+    "in_kanji": "編み合わせる",
+    "in_kana": "あみあわせる",
+    "definitions": ["Переплетать, переплетаться"],
+    "struct_parts": ["編む", "合わせる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "セーターは、２つのパターンを編み合わせて作られている",
+        "in_kana": "セーターは、２つのパターンを編み合わせて作られている",
+        "translation": "Этот свитер сделан с переплетением двух узоров"
+      }
+    ]
+  },{
+    "in_kanji": "編み込む",
+    "in_kana": "あみこむ",
+    "definitions": ["вплетать, заплетать (волосы, ткань, шерстяные нити)"],
+    "struct_parts": ["編む", "込む"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "髪を編み込む",
+        "in_kana": "かみを編み込む",
+        "translation": "Заплетать волосы"
+      }
+    ]
+  },{
+    "in_kanji": "編み出す",
+    "in_kana": "あみだす",
+    "definitions": ["Начать вязать или плести", "(перен.) выдумать, изобретать"],
+    "struct_parts": ["編む", "出す"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "彼は新しい技術を編み出した",
+        "in_kana": "彼はあたらしいぎじゅつを編み出した",
+        "translation": "Он изобрел новую технологию"
+      }
+    ]
+  },{
+    "in_kanji": "歩み寄る",
+    "in_kana": "あゆみよる",
+    "definitions": ["Идти навстречу, идти на компромисс, идти на взаимные уступки"],
+    "struct_parts": ["歩む", "寄る"],
+    "struct_type": "VV",
+    "transitivity_type": "intr",
+    "examples": [
+      {
+        "in_kanji": "彼らは反対派に歩み寄った",
+        "in_kana": "彼らははんたいはに歩み寄った",
+        "translation": "они сблизились с противостоящей фракцией"
+      }
+    ]
+  },{
+    "in_kanji": "洗い上げる",
+    "in_kana": "あらいあげる",
+    "definitions": ["Закончить мойку или стирку, вымыть тщательно"],
+    "struct_parts": ["洗う", "上げる"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私はたくさんの洗濯物を洗い上げた",
+        "in_kana": "私はたくさんのせんたくものを洗い上げた",
+        "translation": "Я завершила очень большую стирку (я постирала мега-много вещей)"
+      }
+    ]
+  },{
+    "in_kanji": "洗い落とす",
+    "in_kana": "あらいおとす",
+    "definitions": ["Смыть, обмыть, отмыть"],
+    "struct_parts": ["洗う", "落とす"],
+    "struct_type": "VV",
+    "transitivity_type": "tr",
+    "examples": [
+      {
+        "in_kanji": "私はシャツに付いた泥を洗い落とした",
+        "in_kana": "私はシャツについたどろうを洗い落とした",
+        "translation": "Я смыла грязь, которая прилипла к рубашке"
+      }
+    ]
+  }
+]

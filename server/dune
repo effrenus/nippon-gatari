@@ -1,0 +1,12 @@
+(rule
+ (targets server_assets.ml)
+ (deps (source_tree assets))
+ (action (run %{bin:ocaml-crunch} -m plain assets -o server_assets.ml)))
+
+(executable
+ (name server)
+ (libraries digestif.ocaml cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
+
+(alias
+ (name DEFAULT)
+ (deps server.exe))
