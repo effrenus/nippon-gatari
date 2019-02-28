@@ -23,7 +23,8 @@ module Styles = {
 
     let active = style([
         fontWeight(`bold),
-        backgroundColor(`hex("AAA")),
+        backgroundColor(`hex("CCC")),
+        borderRadius(px(10)),
     ]);
 }
 

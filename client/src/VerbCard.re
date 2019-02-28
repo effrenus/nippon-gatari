@@ -1,11 +1,23 @@
 module Styles = {
     open Css;
 
+    let flick = Css.(keyframes([
+        (50, [backgroundColor(`hex("f2ff8f")),]),
+        (100, [backgroundColor(`hex("FFF")),])
+    ]));
+
     let card = style([
         display(`flex),
         justifyContent(`spaceBetween),
+        alignItems(`flexStart),
         padding3(~top=px(15), ~h=px(15), ~bottom=px(30)),
         borderBottom(px(1), `solid, `hex("EEE")),
+        backgroundColor(`hex("FFF")),
+    ]);
+
+    let highlite = style([
+        animationName(flick),
+        animationDuration(2000),
     ]);
 
     let head = style([
@@ -21,8 +33,9 @@ module Styles = {
         padding2(~h=px(30), ~v=px(0)),
     ]);
 
-    let verbStruct = style([
-        width(px(200)),
+    let struct_ = style([
+        maxWidth(px(200)),
+        minWidth(px(200)),    
         padding(px(15)),
         backgroundColor(`hex("EEE")),
         borderRadius(px(10)),
@@ -30,14 +43,15 @@ module Styles = {
         textAlign(`center),
     ]);
 
-    let verbStructList = style([
+    let structList = style([
         margin(px(0)),
         marginTop(px(10)),
         padding(px(0)),
         listStyleType(`none),
+        whiteSpace(`nowrap),
     ]);
 
-    let verbStructListItem = style([
+    let structListItem = style([
         display(`inlineBlock),
         padding(px(10)),
         border(px(3), `solid, `hex("AAA")),
@@ -86,10 +100,10 @@ module Sentence = {
 
 let component = ReasonReact.statelessComponent("Nippon.VerbCard");
 
-let make = (~verb, _children) => {
+let make = (~verb, ~highlite=false, _children) => {
     ...component,
     render: _ => {
-      <article className=Styles.card>
+      <article className={Styles.card ++ (highlite ? " " ++ Styles.highlite : "")}>
         <div>
             <header className=Styles.head>
                 <b className=Styles.kanji>{verb##in_kanji->ReasonReact.string}</b>
@@ -111,12 +125,12 @@ let make = (~verb, _children) => {
                 };
             }
         </div>
-        <div className=Styles.verbStruct>
+        <div className=Styles.struct_>
             {ReasonReact.string({j|тип |j} ++ verb##struct_type)}
-            <ul className=Styles.verbStructList>
+            <ul className=Styles.structList>
             ...{
                 verb##struct_parts
-                |> Js.Array.map(part => <li className=Styles.verbStructListItem>part->ReasonReact.string</li>)
+                |> Js.Array.map(part => <li className=Styles.structListItem>part->ReasonReact.string</li>)
             }
             </ul>
         </div>

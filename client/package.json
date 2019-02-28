@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "bs-css": "^8.0.1",
+    "bs-webapi": "^0.13.4",
     "hepburn": "^1.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
