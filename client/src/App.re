@@ -3,7 +3,7 @@ Css.(
     minHeight(vh(100.)),
     margin(px(0)),
     backgroundImage(
-      linearGradient(deg(-20), [(0, `hex("616161")), (100, `hex("9bc5c3"))])
+      linearGradient(deg(0), [(0, `hex("cfd9df")), (100, `hex("e2ebf0"))])
     ),
     fontFamily("Arial, sans-serif")
   ])

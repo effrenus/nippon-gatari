@@ -5,7 +5,7 @@ module Styles = {
       width(pct(70.)),
       overflow(`auto),
       backgroundColor(`hex("FFF")),
-      boxShadow(~y=px(1), ~blur=px(20), `hex("999")),
+      boxShadow(~y=px(1), ~blur=px(10), `hex("999")),
       scrollBehavior(`smooth),
     ]);
 };

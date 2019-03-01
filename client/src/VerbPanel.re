@@ -1,22 +1,44 @@
 module Styles = {
     open Css;
 
+    let wrap = style([
+        maxWidth(px(1500)),
+        margin(`auto),
+        padding4(~top=px(15), ~right=px(30), ~left=px(30), ~bottom=px(30)),
+    ]);
+
+    let head = style([
+        marginBottom(px(20)),
+    ]);
+
+    let header = style([
+        marginTop(px(0)),
+        marginBottom(px(0)),
+    ]);
+
+    let subheader = style([
+        fontSize(rem(0.9)),
+    ]);
+
     let panel = style([
         display(`flex),
         justifyContent(`spaceAround),
         alignItems(`stretch),
-        height(vh(80.)),
-        padding(px(30)),
+        height(px(580)),
         boxSizing(`borderBox)
     ]);
 
     let search = style([
-        width(`calc(`sub, pct(100.), px(60))),
-        margin2(~v=px(0), ~h=px(30)),
-        padding(px(10)),
+        width(pct(100.)),
+        height(px(45)),
+        marginBottom(px(0)),
+        padding2(~v=px(0), ~h=px(10)),
         boxSizing(`borderBox),
-        lineHeight(px(30)),
-        fontSize(rem(1.2)),
+        lineHeight(px(45)),
+        fontSize(rem(1.)),
+        borderWidth(px(0)),
+        borderBottomWidth(px(3)),
+        borderRadius(px(5)),
     ]);
 
     let listWrap = style([
@@ -24,20 +46,21 @@ module Styles = {
         maxWidth(px(500)),
         width(pct(30.)),
         marginRight(px(30)),
+        borderRadius(px(5)),
+        backgroundColor(`hex("FFF")),
+        boxShadow(~y=px(1), ~blur=px(10), `hex("999")),
     ]);
     
     let list = style([
         position(`absolute),
         left(px(0)),
-        top(px(0)),
+        top(px(45)),
         right(px(0)),
         bottom(px(30)),
         margin(px(0)),
         padding(px(0)),
         overflow(`auto),
         listStyleType(`none),
-        backgroundColor(`hex("FFF")),
-        boxShadow(~y=px(1), ~blur=px(20), `hex("999")),
     ]);
 };
 
@@ -74,15 +97,24 @@ let make = (~verbs, _children) => {
         | Some(text) => verbs|>Js.Array.filter(verb => Js.String.includes(text, verb##in_kana))
         };
         let filteredVerbs = allVerbs->Belt.Array.slice(~offset=page*perPage, ~len=perPage);
-        <div>
-            <input
-                className=Styles.search
-                onInput={event => ReactEvent.Form.target(event)##value->Hepburn.hiraganaOfRomaji->FilterName->send}
-                placeholder={j|Поиск|j}
-                type_="text"
-            />
+        <section className=Styles.wrap>
+            <header className=Styles.head>
+                <h1 className=Styles.header>{{j|Словарь составных глаголов|j}->ReasonReact.string}</h1>
+                <span className=Styles.subheader>{{j|под редакцией |j}->ReasonReact.string} <a href="http://www.nippon-gatari.info/" target="_blank">{{j|Олеси Гончар|j}->ReasonReact.string}</a></span>
+            </header>
             <section className=Styles.panel>
                 <div className=Styles.listWrap>
+                    <input
+                        className=Styles.search
+                        onInput={event => 
+                                Js.Re.fromStringWithFlags("[a-z0-9]", ~flags="i")
+                                |> Js.Re.test(ReactEvent.Form.target(event)##value->Hepburn.hiraganaOfRomaji)
+                                ? ()
+                                : ReactEvent.Form.target(event)##value->Hepburn.hiraganaOfRomaji->FilterName->send}
+                        placeholder={j|Поиск|j}
+                        type_="text"
+                    />
+                    
                     <ul className=Styles.list>
                         ...{filteredVerbs-> Belt.Array.mapWithIndex((i, verb) => <VerbsListItem onClick=(_event => send(HighliteVerb(i))) verb=verb />)}
                     </ul>
@@ -93,9 +125,8 @@ let make = (~verbs, _children) => {
                         onPageClick=(page => send(UpdatePage(page))) />
                 </div>
 
-
                 <Cards verbs=filteredVerbs highliteVerbIndex=state.highliteVerbIndex />
             </section>
-        </div>
+        </section>
     }
 }

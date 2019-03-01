@@ -27,6 +27,7 @@ module Styles = {
     let definition = style([
         marginBottom(px(20)),
         padding2(~h=px(30), ~v=px(0)),
+        lineHeight(`abs(1.5)),
     ]);
 
     let examples = style([
@@ -34,8 +35,8 @@ module Styles = {
     ]);
 
     let struct_ = style([
-        maxWidth(px(200)),
-        minWidth(px(200)),    
+        maxWidth(px(170)),
+        minWidth(px(170)),    
         padding(px(15)),
         backgroundColor(`hex("EEE")),
         borderRadius(px(10)),
@@ -77,6 +78,7 @@ module Sentence = {
     module Style = {
         open Css;
         let example = style([
+            marginBottom(px(10)),
             color(`hex("111")),
         ]);
 
