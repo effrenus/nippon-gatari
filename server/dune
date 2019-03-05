@@ -5,7 +5,7 @@
 
 (executable
  (name server)
- (libraries digestif.ocaml cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
+ (libraries digestif.ocaml ezgzip cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
 
 (alias
  (name DEFAULT)

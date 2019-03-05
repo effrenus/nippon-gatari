@@ -1,7 +1,7 @@
 type struct_type = [
     | `VV
     | `Vs
-    | `pW
+    | `pV
     | `V
     | `BackForm
     | `Unknown]
@@ -33,7 +33,7 @@ let string_of_transitivity_type = function
 let string_of_struct_type = function
     `VV -> "VV"
     | `Vs -> "Vs"
-    | `pW -> "pW"
+    | `pV -> "pV"
     | `V -> "V"
     | `BackForm -> "back-form"
     | `Unknown -> ""
@@ -52,7 +52,7 @@ module Parse = struct
         struct_type = (match (json |> member "struct_type" |> to_string) with
             | "VV" -> `VV
             | "Vs" -> `Vs
-            | "pV" -> `pW
+            | "pV" -> `pV
             | "V" -> `V
             | "back-form" -> `BackForm
             | _ -> `Unknown);

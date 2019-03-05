@@ -10,10 +10,7 @@
     "webpack:production": "NODE_ENV=production webpack",
     "server": "webpack-dev-server"
   },
-  "keywords": [
-    "BuckleScript"
-  ],
-  "author": "",
+  "author": "Alexey Sazonov",
   "license": "MIT",
   "dependencies": {
     "bs-css": "^8.0.1",

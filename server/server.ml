@@ -1,3 +1,5 @@
+open Lwt.Infix
+
 let serve_static path =
   match Server_assets.read path with
   | Some body -> body
@@ -13,26 +15,36 @@ let on_exn = function
 
 module Graphql_cohttp_lwt = Graphql_cohttp.Make (Graphql_lwt.Schema) (Cohttp_lwt_unix.IO) (Cohttp_lwt.Body)
 
-let on_request gql_cb conn req body =
+let make_response_compressed ~headers body =
+  let body' = Ezgzip.compress body in
+  let len = Bytes.length (Bytes.of_string body') in
+  let headers' = Cohttp.Header.add_list headers [("Content-Length", string_of_int(len)); ("Content-Encoding", "gzip")] in
+  `Expert (Cohttp.Response.make ~status:`OK ~headers:headers' (), fun _in oc -> body' |> Lwt_io.write oc >>= fun () ->  Lwt_io.flush oc)
+
+let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Parse.parse
+
+let on_request conn req body =
   let req_path = Cohttp.Request.uri req |> Uri.path in
   let path_parts = Str.(split (regexp "/") req_path) in
   match req.meth, path_parts with
     `GET,  ["graphql"]
-  | `GET,  ["graphql"; _]
-  | `POST, ["graphql"] -> gql_cb conn req body
+  | `GET,  ["graphql"; _] -> (Graphql_cohttp_lwt.make_callback (fun _ : Gql.ctx -> { verbs }) Gql.schema) conn req body
+  | `POST, ["graphql"] -> Graphql_cohttp_lwt.execute_request Gql.schema { verbs } req body >>=
+                                      (fun resp -> match resp with
+                                      | `Response(_, b) ->
+                                        Cohttp_lwt.Body.to_string b >>= (fun d -> Cohttp_lwt_unix.IO.return (make_response_compressed ~headers:(Cohttp.Header.init ()) d))
+                                      | `Expert(_) as a -> Cohttp_lwt_unix.IO.return a)
   | _, path ->
-    let header =
+    let headers =
       match (String.split_on_char '.' (List.hd path)) with
       | [_; "svg"] -> Cohttp.Header.init_with "Content-Type" "image/svg+xml"
       | _ -> Cohttp.Header.init ()
     in
-    `Response (Cohttp.Response.make ~status:`OK ~headers:header (), Cohttp_lwt.Body.of_string (serve_static req_path)) 
+    make_response_compressed ~headers (serve_static req_path)
     |> Cohttp_lwt_unix.IO.return
 
 let () =
-  let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Parse.parse in
-  let callback = Graphql_cohttp_lwt.make_callback (fun _ : Gql.ctx -> { verbs }) Gql.schema in
-  let server = Cohttp_lwt_unix.Server.make_response_action ~callback:(on_request callback) () in
+  let server = Cohttp_lwt_unix.Server.make_response_action ~callback:on_request () in
   let port = try int_of_string (Sys.getenv "PORT") with Not_found -> 8080 in
   let mode = `TCP (`Port port) in
 
