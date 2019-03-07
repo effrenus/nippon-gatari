@@ -249,11 +249,11 @@
               "deprecationReason": null
             },
             {
-              "name": "searchVerbs",
+              "name": "getVerbByName",
               "description": null,
               "args": [
                 {
-                  "name": "text",
+                  "name": "name",
                   "description": null,
                   "type": {
                     "kind": "NON_NULL",
@@ -268,21 +268,9 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "verb",
-                      "ofType": null
-                    }
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "verb",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

@@ -18,7 +18,11 @@ module Graphql_cohttp_lwt = Graphql_cohttp.Make (Graphql_lwt.Schema) (Cohttp_lwt
 let make_response_compressed ~headers body =
   let body' = Ezgzip.compress body in
   let len = Bytes.length (Bytes.of_string body') in
-  let headers' = Cohttp.Header.add_list headers [("Content-Length", string_of_int(len)); ("Content-Encoding", "gzip")] in
+  let headers' = Cohttp.Header.add_list headers [
+    ("Content-Length", string_of_int(len));
+    ("Content-Encoding", "gzip")
+  ] in
+  
   `Expert (Cohttp.Response.make ~status:`OK ~headers:headers' (), fun _in oc -> body' |> Lwt_io.write oc >>= fun () ->  Lwt_io.flush oc)
 
 let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Parse.parse
@@ -34,13 +38,16 @@ let on_request conn req body =
                                       | `Response(_, b) ->
                                         Cohttp_lwt.Body.to_string b >>= (fun d -> Cohttp_lwt_unix.IO.return (make_response_compressed ~headers:(Cohttp.Header.init ()) d))
                                       | `Expert(_) as a -> Cohttp_lwt_unix.IO.return a)
-  | _, path ->
-    let headers =
-      match (String.split_on_char '.' (List.hd path)) with
+  | `GET, ["assets"; path] -> 
+      let headers =
+      match (String.split_on_char '.' path) with
       | [_; "svg"] -> Cohttp.Header.init_with "Content-Type" "image/svg+xml"
       | _ -> Cohttp.Header.init ()
-    in
-    make_response_compressed ~headers (serve_static req_path)
+      in
+      make_response_compressed ~headers (serve_static path)
+      |> Cohttp_lwt_unix.IO.return
+  | _, _ ->
+    make_response_compressed ~headers:(Cohttp.Header.init ()) (serve_static "index.html")
     |> Cohttp_lwt_unix.IO.return
 
 let () =

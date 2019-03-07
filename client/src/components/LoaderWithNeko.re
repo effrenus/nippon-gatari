@@ -6,7 +6,7 @@ module Styles = {
       left(pct(50.)),
       top(pct(50.)),
       textAlign(`center),
-      fontSize(rem(1.5)),
+      fontSize(rem(1.3)),
       transform(`translate(pct(-50.), pct(-50.))),
   
       before([
@@ -14,8 +14,8 @@ module Styles = {
         contentRule(""),
         width(px(100)),
         height(px(100)),
-        marginBottom(px(20)),
-        backgroundImage(`url("/maneki-neko.svg")),
+        marginBottom(px(10)),
+        backgroundImage(`url("/assets/maneki-neko.svg")),
         backgroundSize(`contain),
         backgroundRepeat(`noRepeat),
         backgroundPosition(pct(50.), pct(50.))

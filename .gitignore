@@ -8,3 +8,4 @@ client/build/
 client/src/**/*.bs.js
 server/_build/
 client/.graphql_ppx_cache/
+client/lib/

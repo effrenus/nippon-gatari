@@ -73,14 +73,15 @@ let schema = Schema.(schema [
       ~typ:(non_null (list (non_null verb)))
       ~resolve:(fun info () -> Lwt_result.return info.ctx.verbs)
     ;
-    io_field "searchVerbs"
+    io_field "getVerbByName"
       ~args:Arg.[
-        arg "text" ~typ:(non_null string)
+        arg "name" ~typ:(non_null string)
       ]
-      ~typ:(non_null (list (non_null verb)))
-      ~resolve:(fun info () text -> 
+      ~typ:verb
+      ~resolve:(fun info () name -> 
+        let decoded_name = Uri.pct_decode name in
         info.ctx.verbs
-        |> Base.List.filter ~f:(fun v -> Base.String.is_substring v.Compverb.in_kana ~substring:text) 
+        |> Base.List.find ~f:(fun v -> Base.String.(=) v.Compverb.in_kana decoded_name)
         |> Lwt_result.return)
     ;
   ]

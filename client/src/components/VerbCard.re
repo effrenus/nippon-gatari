@@ -1,5 +1,5 @@
 module Styles = {
-    open ExtendedCss;
+    open Css;
 
     let flick = Css.(keyframes([
         (50, [backgroundColor(`hex("f2ff8f")),]),
@@ -42,7 +42,7 @@ module Styles = {
             height(px(16)),
             marginRight(px(6)),
             marginLeft(px(-24)),
-            contentRule("defs"),
+            `declaration("content", "counter(defs, decimal)"),
             borderRadius(pct(50.)),
             border(px(1), `solid, `hex("BBB")),
             fontSize(rem(0.7)),
@@ -99,6 +99,15 @@ module Styles = {
         textDecoration(`none),
         borderBottom(px(1), `dotted, `hex("888")),
     ]);
+
+    let detailLink = style([
+        color(`hex("000")),
+        textDecoration(`none),
+
+        hover([
+            textDecoration(`underline),
+        ])
+    ])
 }
 
 module Sentence = {
@@ -167,7 +176,9 @@ let make = (~verb, ~highlite=false, _children) => {
       <article className={Styles.card ++ (highlite ? " " ++ Styles.highlite : "")}>
         <div>
             <header className=Styles.head>
-                <b className=Styles.kanji>{verb##in_kanji->ReasonReact.string}</b>
+                <Router.Link className=Styles.detailLink href={"/compverbs/" ++ verb##in_kana ++ "/"}>
+                    <b className=Styles.kanji>{verb##in_kanji->ReasonReact.string}</b>
+                </Router.Link>
                 <small className=Styles.kana>{verb##in_kana->ReasonReact.string}</small>
                 <small className=Styles.romaji>{Hepburn.romajiOfKana(verb##in_kana)->Js.String.toLowerCase->ReasonReact.string}</small>
             </header>

@@ -9,12 +9,39 @@ Css.(
   ])
 );
 
-let component = ReasonReact.statelessComponent("Nippon.App");
+type action =
+  | ChangeRoute(Router.route);
+
+type state = {
+  route: Router.route
+};
+
+let component = ReasonReact.reducerComponent("Nippon.App");
 
 let make = _children => {
   ...component,
-  render: _self =>
+  initialState: () => { route: ReasonReact.Router.dangerouslyGetInitialUrl()->Router.urlToRoute },
+  reducer: (action, _state) => 
+  switch (action) {
+  | ChangeRoute(route) => ReasonReact.Update({ route: route })
+  },
+  didMount: self => {
+    let watchId = ReasonReact.Router.watchUrl(url => { 
+      Router.urlToRoute(url)
+      -> ChangeRoute
+      |> self.send
+    });
+    self.onUnmount(() => watchId->ReasonReact.Router.unwatchUrl)
+  },
+  render: self =>
   <ReasonApollo.Provider client=GqlClient.instance>
-    <VerbsList />
-  </ReasonApollo.Provider>,
+  {
+    switch (self.state.route) {
+    | CompoundVerbs => <VerbsListContainer />
+    | CompoundVerbDetail(name) => <VerbDetailContainer name />
+    | Redirect(path) => <Redirect r=path />
+    | NotFound => <NotFound />
+    }
+  }
+  </ReasonApollo.Provider>
 };
