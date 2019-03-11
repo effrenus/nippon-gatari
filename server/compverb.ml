@@ -20,6 +20,7 @@ type verb = {
     in_kanji: string;
     in_kana: string;
     definitions: string list;
+    similars: string list option;
     struct_type: struct_type;
     transitivity_type: transitivity_type;
     struct_parts: string list;
@@ -48,6 +49,7 @@ module Parse = struct
     let parse_verb json = {
         in_kanji = (json |> member "in_kanji" |> to_string);
         in_kana = (json |> member "in_kana" |> to_string);
+        similars = None;
         transitivity_type = (match (json |> member "transitivity_type" |> to_string) with | "tr" -> Transitive | "intr" | _ -> Intransitive);
         struct_type = (match (json |> member "struct_type" |> to_string) with
             | "VV" -> `VV
