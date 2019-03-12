@@ -9,6 +9,7 @@ module GetAllVerbsGql = [%graphql
         struct_parts
         transitivity_type
         examples {
+          definition
           in_kanji
           in_kana
           translation
@@ -30,6 +31,7 @@ module GetVerbGql = [%graphql
       struct_parts
       transitivity_type
       examples {
+        definition
         in_kanji
         in_kana
         translation

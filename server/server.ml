@@ -25,7 +25,7 @@ let make_response_compressed ~headers body =
   
   `Expert (Cohttp.Response.make ~status:`OK ~headers:headers' (), fun _in oc -> body' |> Lwt_io.write oc >>= fun () ->  Lwt_io.flush oc)
 
-let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Parse.parse
+let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Json.decode
 
 let on_request conn req body =
   let req_path = Cohttp.Request.uri req |> Uri.path in

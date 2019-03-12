@@ -4,9 +4,8 @@
  (action (run %{bin:ocaml-crunch} -m plain assets -o server_assets.ml)))
 
 (executables
- (names server parser)
- (libraries core ppx_deriving_yojson.runtime digestif.ocaml ezgzip cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson)
- (preprocess (pps ppx_deriving_yojson)))
+ (names server)
+ (libraries core digestif.ocaml ezgzip cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
 
 (alias
  (name DEFAULT)

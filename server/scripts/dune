@@ -1,0 +1,6 @@
+(copy_files# ../compverb.ml)
+
+(executables
+ (names parser)
+ (libraries csv uutf lambdasoup core ppx_deriving_yojson.runtime digestif.ocaml cohttp-lwt cohttp-lwt-unix yojson)
+ (preprocess (pps ppx_deriving_yojson)))

@@ -6,6 +6,11 @@ type ctx = {
 
 let example = Schema.(obj "example"
 ~fields:(fun _ -> [
+  field "definition"
+    ~args:Arg.[]
+    ~typ:int
+    ~resolve:(fun _ (p: Compverb.example) -> p.definition)
+  ;
   field "in_kanji"
     ~args:Arg.[]
     ~typ:(non_null string)
@@ -42,6 +47,12 @@ let verb = Schema.(obj "verb"
       ~doc:"Verb definitions in russian"
       ~typ:(non_null (list (non_null string)))
       ~resolve:(fun _ p -> p.Compverb.definitions)
+    ;
+    field "synonyms"
+      ~args:Arg.[]
+      ~doc:"Synonyms"
+      ~typ:(list (non_null string))
+      ~resolve:(fun _ p -> p.Compverb.synonyms)
     ;
     field "struct_parts"
       ~args:Arg.[]

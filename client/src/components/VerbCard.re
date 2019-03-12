@@ -33,7 +33,7 @@ module Styles = {
 
     let definition = style([
         marginBottom(px(10)),
-        lineHeight(`abs(1.5)),
+        lineHeight(`abs(1.4)),
         `declaration("counter-increment", "defs"),
 
         before([
@@ -114,13 +114,18 @@ module Sentence = {
     module Style = {
         open Css;
         let example = style([
-            marginBottom(px(10)),
-            color(`hex("111")),
+            marginBottom(px(5)),
+            marginTop(px(10)),
+            color(`hex("333")),
+        ]);
+
+        let kanji = style([
+            fontSize(rem(0.9)),
         ]);
 
         let translation = style([
             display(`block),
-            marginTop(px(5)),
+            marginTop(px(0)),
             fontSize(rem(0.9)),
         ])
     }
@@ -129,7 +134,7 @@ module Sentence = {
         ...component,
         render: _self => {
             <div className=Style.example>
-                <span title=kana>{kanji->ReasonReact.string}</span> 
+                <span className=Style.kanji title=kana>{kanji->ReasonReact.string}</span> 
                 <span className=Style.translation>{translation->ReasonReact.string}</span>
             </div>
         }
@@ -149,12 +154,21 @@ module Definition = {
 }
 
 module Definitions = {
+    let getDefExamples = (examples, defIndex) =>
+        switch (examples) {
+        | None => ReasonReact.null
+        | Some(exs) => 
+            exs
+            -> Belt.Array.keep(ex => switch (ex##definition) { | None => false | Some(v) => v === defIndex + 1 })
+            -> Belt.Array.map(ex => <Sentence kanji=ex##in_kanji kana=ex##in_kana translation=ex##translation />)
+            -> ReasonReact.array
+        }
     let component = ReasonReact.statelessComponent("Nippon.VerbCard.Definitions");
-    let make = (~definitions, _children) => {
+    let make = (~definitions, ~examples, _children) => {
         ...component,
         render: _self => {
             <ol className=Styles.definitions>
-                ...{ definitions|>Js.Array.map(v => <li className=Styles.definition>v->ReasonReact.string</li>) }
+                ...{ definitions |> Js.Array.mapi((v, i) => <li className=Styles.definition>{v->ReasonReact.string} {getDefExamples(examples, i)}</li>) }
             </ol>
         }
     } 
@@ -183,7 +197,7 @@ let make = (~verb, ~highlite=false, _children) => {
                 <small className=Styles.romaji>{Hepburn.romajiOfKana(verb##in_kana)->Js.String.toLowerCase->ReasonReact.string}</small>
             </header>
             {
-                <Definitions definitions=verb##definitions />
+                <Definitions definitions=verb##definitions examples=verb##examples />
             }
             {
                 switch (verb##examples) {
@@ -191,7 +205,9 @@ let make = (~verb, ~highlite=false, _children) => {
                 | Some(examples) => 
                 <div className=Styles.examples>
                 ...{
-                    examples |> Js.Array.map(v => <Sentence kanji=v##in_kanji kana=v##in_kana translation=v##translation />)
+                    examples
+                    -> Belt.Array.keep(ex => switch (ex##definition) { | None => true | Some(_) => false })
+                    |> Js.Array.map(v => <Sentence kanji=v##in_kanji kana=v##in_kana translation=v##translation />)
                 }
                 </div>
                 };
