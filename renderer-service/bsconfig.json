@@ -1,11 +1,11 @@
 {
-  "name": "nippon-gatari-client",
+  "name": "renderer",
   "reason": {
     "react-jsx": 2
   },
   "sources": {
-    "dir" : "src",
-    "subdirs" : true
+    "dir" : "./",
+    "subdirs" : false
   },
   "package-specs": [{
     "module": "commonjs"
@@ -15,12 +15,11 @@
   "bs-dependencies": [
     "reason-react",
     "reason-apollo",
-    "bs-css",
-    "bs-webapi",
-    "bs-express"
+    "bs-node",
+    "nippon-gatari-client"
   ],
-  "refmt": 3,
   "ppx-flags": [
     "graphql_ppx/ppx"
-  ]
+  ],
+  "refmt": 3
 }

@@ -1,5 +1,24 @@
 open Lwt.Infix
 
+module ReactPageRenderer = struct
+  open Core
+  open Async_unix
+  open Async_extra
+
+  let buf = "hello world\n"
+    |> Iobuf.of_string
+    |> Iobuf.read_only
+
+  let socket_addr = Unix.Socket.Address.Inet.create (Unix.Inet_addr.of_string "127.0.0.1") ~port:8200
+  
+  let render_for_url =
+    print_endline "aaaa";
+    let sock = Socket.create Socket.Type.udp in
+    let send = Udp.sendto () |> Or_error.ok_exn in
+    send (Socket.fd sock) buf socket_addr
+    (* Udp.recvfrom_loop (Socket.fd sock) (fun buf _ -> print_endline (Iobuf.to_string buf)) *)
+end
+
 let serve_static path =
   match Server_assets.read path with
   | Some body -> body

@@ -38,6 +38,7 @@ let make = (~name, _children) => {
                | Error(error) =>
                   <div> {ReasonReact.string(error##message)} </div>
                | Data(response) =>
+                Js.log(response);
                 response##verb
                 ->Belt.Option.mapWithDefault(ReasonReact.null, verb => 
                   <section className=Styles.wrap>

@@ -5,7 +5,7 @@
 
 (executables
  (names server)
- (libraries core digestif.ocaml ezgzip cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
+ (libraries core async async_unix async_extra digestif.ocaml ezgzip cohttp-lwt cohttp-lwt-unix graphql-lwt graphql-cohttp yojson))
 
 (alias
  (name DEFAULT)
