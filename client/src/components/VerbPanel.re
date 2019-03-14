@@ -1,8 +1,6 @@
 module Styles = VerbPanel__Styles;
 
 module Filter = {
-    open Dom.Storage
-
     type t = {
         word: option(string),
         page: int,
@@ -19,7 +17,7 @@ module Filter = {
         let filterByWord = verbs => {
             let word = filterParams.word->Belt.Option.map(w => w->Hepburn.hiraganaOfRomaji);
             let filter = (word, verb) => Js.String.includes(word, Hepburn.containsKanji(word) ? verb##in_kanji : verb##in_kana);
-            
+
             word
             ->Belt.Option.mapWithDefault(verbs, word => verbs |> Js.Array.filter(filter(word)));
         }
@@ -47,24 +45,46 @@ module Filter = {
         let p = Js.Json.parseExn(val_);
 
         Js.Json.decodeObject(p)
-        ->map(dict => {
+        -> map(dict => {
             word: dict->Js.Dict.get("word")->flatMap(Js.Json.decodeString),
             page: dict->Js.Dict.get("page")->flatMap(Js.Json.decodeNumber)->map(int_of_float)->getWithDefault(1)
-        })
+           })
     }
 
-    let save = filter => 
-        localStorage
-        |> setItem("filter", filter -> toJson -> Js.Json.stringify)
-    
-    let restore = () => 
-        (localStorage |> getItem("filter"))
-        -> Belt.Option.flatMap(fromJson)
-        -> Belt.Option.getWithDefault(empty) 
-        
+    let save = filter => {
+        let url = ReasonReact.Router.dangerouslyGetInitialUrl();
+        let params =
+            url
+            -> Router.getSearchParams
+            -> Belt.List.keep(p => !Belt.List.has(["word", "page"], p, (a, (k, _)) => k == a))
+            -> Belt.List.concat([
+                ("page", Some(filter.page->string_of_int)),
+                ("word", filter.word)
+               ])
+            -> Belt.List.reduce("", (acc, (k, v)) => acc ++ "&" ++ (switch v {  | None => "" | Some(d) => k ++ "=" ++ d }))
+            -> Js.String.substr(~from=1);
+
+        Router.string_of_url({...url, search: params})
+        -> Router.pushSilentUnsafe
+    }
+
+    let restore = () => {
+        open Belt;
+        let searchParams =
+            ReasonReact.Router.dangerouslyGetInitialUrl()
+            |> Router.getSearchParams;
+        let kCmp = (a, b) => a == b;
+
+        {
+            word: List.getAssoc(searchParams, "word", kCmp)->Option.flatMap(x => x),
+            page: List.getAssoc(searchParams, "page", kCmp)
+            -> Option.flatMap(x => x->Option.map(x => try (int_of_string(x)) { | _ => 1 }))
+            -> Option.getWithDefault(1)
+        }
+    }
 }
 
-type action = 
+type action =
   | UpdateFilter(Filter.action)
   | HighliteVerb(int);
 
@@ -90,11 +110,12 @@ let make = (~verbs, _children) => {
     initialState: () => {
         filter: Filter.restore(), highliteVerbIndex: None,
     },
+    willReceiveProps: self => {...self.state, filter: Filter.restore()},
     render: ({ state, send, handle }) => {
-        let page = state.filter.page - 1;
         let perPage = 15;
         let filteredVerbs = Filter.apply(verbs, state.filter);
-        let visibleVerbs = filteredVerbs->Belt.Array.slice(~offset=page*perPage, ~len=perPage);
+        let page = max(1, min((state.filter.page), (Js.Array.length(filteredVerbs)->float_of_int /. perPage->float_of_int)->ceil->int_of_float));
+        let visibleVerbs = filteredVerbs->Belt.Array.slice(~offset=(page-1)*perPage, ~len=perPage);
 
         <section className=Styles.wrap>
             <header className=Styles.head>
@@ -112,13 +133,13 @@ let make = (~verbs, _children) => {
                             type_="text"
                         />
                     </div>
-                    
+
                     <ul className=Styles.list>
                         ...{visibleVerbs
-                            ->Belt.Array.mapWithIndex((i, verb) => <VerbsListItem onClick=(_event => send(HighliteVerb(i))) verb=verb />)}
+                            -> Belt.Array.mapWithIndex((i, verb) => <VerbsListItem onClick=(_event => send(HighliteVerb(i))) verb=verb />)}
                     </ul>
-                    <ListPaginator 
-                        currentPage=state.filter.page
+                    <ListPaginator
+                        currentPage=page
                         totalCount=float_of_int(Belt.Array.length(filteredVerbs))
                         perPage=float_of_int(perPage)
                         onPageClick=(page => page->Filter.UpdatePage->UpdateFilter->send) />
