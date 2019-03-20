@@ -1,5 +1,5 @@
 {
-  "name": "nippon-gatari-renderer-service",
+  "name": "nippon-gatari-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,11 +10,24 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alexey Sazonov",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
+  "files": [
+    "*.re",
+    "lib/js",
+    "assets",
+    "build",
+    "bsconfig.json",
+    "yarn.lock"
+  ],
   "dependencies": {
+    "bs-css": "^8.0.2",
+    "bs-express": "^0.10.0",
     "bs-node": "reasonml-community/bs-node",
     "bs-platform": "^4.0.18",
+    "compression": "^1.7.4",
+    "emotion-server": "^9",
     "graphql_ppx": "^0.2.8",
+    "nippon-gatari-client": "^1.0.1",
     "reason-apollo": "^0.15.2",
     "reason-react": "^0.6.0"
   }

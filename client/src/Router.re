@@ -56,7 +56,7 @@ let getSearchParams = (url: ReasonReact.Router.url) =>
   |> Belt.List.fromArray
 
 let makeUrl = path => ReasonReact.Router.{
-  path: path |> Js.String.split("/") |> Array.to_list,
+  path: path |> Js.String.replaceByRe([%re "/^\/+|\/+$/g"], "") |> Js.String.split("/") |> Array.to_list,
   hash: "",
   search: ""
 };

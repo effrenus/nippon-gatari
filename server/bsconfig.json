@@ -1,5 +1,5 @@
 {
-  "name": "renderer",
+  "name": "nippon-gatari-backend",
   "reason": {
     "react-jsx": 2
   },
@@ -16,6 +16,8 @@
     "reason-react",
     "reason-apollo",
     "bs-node",
+    "bs-css",
+    "bs-express",
     "nippon-gatari-client"
   ],
   "ppx-flags": [
