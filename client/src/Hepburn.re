@@ -4,8 +4,11 @@
  */
 
 type katakana = string;
+
 type romaji = string;
+
 type hiragana = string;
+
 type kana = string;
 
 [@bs.module "hepburn" ]

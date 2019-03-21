@@ -1,10 +1,5 @@
 open Lwt.Infix
 
-let serve_static path =
-  match Server_assets.read path with
-  | Some body -> body
-  | None -> ""
-
 let on_exn = function
   | Unix.Unix_error (error, func, arg) ->
     Logs.warn (fun m ->
@@ -27,28 +22,33 @@ let make_response_compressed ~headers body =
 
 let verbs = Yojson.Basic.from_file "./verb_dict.json" |> Compverb.Json.decode
 
+let cors_headers () =
+  Cohttp.Header.add_list 
+    (Cohttp.Header.init ())
+    [
+    "Access-Control-Allow-Origin", "*";
+    "Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS";
+    "Access-Control-Allow-Credentials", "true";
+    "Access-Control-Allow-Headers", "content-type"
+    ]
+
 let on_request conn req body =
   let req_path = Cohttp.Request.uri req |> Uri.path in
   let path_parts = Str.(split (regexp "/") req_path) in
+
   match req.meth, path_parts with
-    `GET,  ["graphql"]
-  | `GET,  ["graphql"; _] -> (Graphql_cohttp_lwt.make_callback (fun _ : Gql.ctx -> { verbs }) Gql.schema) conn req body
+  | `OPTIONS, ["graphql"] -> 
+    Cohttp_lwt_unix.IO.return 
+      (`Response (Cohttp.Response.make ~status:`OK ~headers:(cors_headers ()) (), Cohttp_lwt.Body.of_string ""))
+  
   | `POST, ["graphql"] -> Graphql_cohttp_lwt.execute_request Gql.schema { verbs } req body >>=
-                                      (fun resp -> match resp with
-                                      | `Response(_, b) ->
-                                        Cohttp_lwt.Body.to_string b >>= (fun d -> Cohttp_lwt_unix.IO.return (make_response_compressed ~headers:(Cohttp.Header.init ()) d))
-                                      | `Expert(_) as a -> Cohttp_lwt_unix.IO.return a)
-  | `GET, ["assets"; path] -> 
-      let headers =
-      match (String.split_on_char '.' path) with
-      | [_; "svg"] -> Cohttp.Header.init_with "Content-Type" "image/svg+xml"
-      | _ -> Cohttp.Header.init ()
-      in
-      make_response_compressed ~headers (serve_static path)
-      |> Cohttp_lwt_unix.IO.return
-  | _, _ ->
-    make_response_compressed ~headers:(Cohttp.Header.init ()) (serve_static "index.html")
-    |> Cohttp_lwt_unix.IO.return
+                            (fun resp -> match resp with
+                            | `Response(_, b) ->
+                                Cohttp_lwt.Body.to_string b >>= 
+                                (fun d -> Cohttp_lwt_unix.IO.return (make_response_compressed ~headers:(Cohttp.Header.init ()) d))
+                            | `Expert(_) as a -> Cohttp_lwt_unix.IO.return a)
+  
+  | _,  _ -> (Graphql_cohttp_lwt.make_callback (fun _ : Gql.ctx -> { verbs }) Gql.schema) conn req body
 
 let () =
   let server = Cohttp_lwt_unix.Server.make_response_action ~callback:on_request () in

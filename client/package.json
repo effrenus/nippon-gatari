@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "nippon-gatari-client",
+  "version": "1.0.1",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -11,12 +11,22 @@
     "server": "webpack-dev-server"
   },
   "author": "Alexey Sazonov",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
+  "files": [
+    "src",
+    "lib/js",
+    "build",
+    "bsconfig.json",
+    "graphql_schema.json",
+    "yarn.lock"
+  ],
   "dependencies": {
     "bs-css": "^8.0.1",
+    "bs-express": "^0.10.0",
     "bs-json": "^1.0.1",
     "bs-webapi": "^0.13.4",
     "hepburn": "^1.1.1",
+    "isomorphic-unfetch": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reason-apollo": "^0.15.2",
@@ -27,7 +37,6 @@
     "graphql_ppx": "^0.2.8",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.0.1",
-    "webpack-bundle-analyzer": "^3.1.0",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.8"
   }

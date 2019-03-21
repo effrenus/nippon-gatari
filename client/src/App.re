@@ -16,11 +16,18 @@ type state = {
   route: Router.route
 };
 
+let routeToComponent = (route : Router.route) => switch (route) {
+  | CompoundVerbs => <VerbsListContainer />
+  | CompoundVerbDetail(name) => <VerbDetailContainer name />
+  | Redirect(path) => <Redirect r=path />
+  | NotFound => <NotFound />
+  }
+
 let component = ReasonReact.reducerComponent("Nippon.App");
 
-let make = _children => {
+let make = (~getInitUrl=?, _children) => {
   ...component,
-  initialState: () => { route: ReasonReact.Router.dangerouslyGetInitialUrl()->Router.urlToRoute },
+  initialState: () => { route: Router.urlToRoute(switch (getInitUrl) { | None => ReasonReact.Router.dangerouslyGetInitialUrl() | Some(f) => f() }) },
   reducer: (action, _state) => 
   switch (action) {
   | ChangeRoute(route) => ReasonReact.Update({ route: route })
@@ -33,15 +40,10 @@ let make = _children => {
     });
     self.onUnmount(() => watchId->ReasonReact.Router.unwatchUrl)
   },
-  render: self =>
-  <ReasonApollo.Provider client=GqlClient.instance>
-  {
-    switch (self.state.route) {
-    | CompoundVerbs => <VerbsListContainer />
-    | CompoundVerbDetail(name) => <VerbDetailContainer name />
-    | Redirect(path) => <Redirect r=path />
-    | NotFound => <NotFound />
-    }
+  render: self => {
+    let comp = routeToComponent(self.state.route);
+    <ReasonApollo.Provider client=GqlClient.instance>
+      comp
+    </ReasonApollo.Provider>
   }
-  </ReasonApollo.Provider>
 };

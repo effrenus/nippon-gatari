@@ -1,29 +1,22 @@
 const path = require('path');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require("webpack");
 const outputDir = path.join(__dirname, 'build/');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: './lib/js/src/Index.bs.js',
+  devtool: "source-map",
   mode: isProd ? 'production' : 'development',
   output: {
     path: outputDir,
     filename: 'Index.js'
   },
-  // plugins: [
-  //   new BundleAnalyzerPlugin()
-  // ],
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: false,
-      }),
-    ],
-  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.GQL_URI': JSON.stringify(isProd ? "/graphql" : "http://localhost:8080/graphql")
+    })
+  ],
   devServer: {
     compress: true,
     contentBase: outputDir,

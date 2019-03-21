@@ -89,7 +89,7 @@ let schema = Schema.(schema [
         arg "name" ~typ:(non_null string)
       ]
       ~typ:verb
-      ~resolve:(fun info () name -> 
+      ~resolve:(fun info () name ->
         let decoded_name = Uri.pct_decode name in
         info.ctx.verbs
         |> Base.List.find ~f:(fun v -> Base.String.(=) v.Compverb.in_kana decoded_name)
