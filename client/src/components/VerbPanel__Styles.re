@@ -15,7 +15,9 @@ let header = style([
     marginBottom(px(0)),
 ]);
 
-let subheader = style([
+let editor = style([
+    display(`block),
+    marginTop(px(15)),
     fontSize(rem(0.9)),
 ]);
 

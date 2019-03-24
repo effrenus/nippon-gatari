@@ -25,7 +25,7 @@ module Link = {
 };
 
 type route =
-  | CompoundVerbs
+  | CompoundVerbs(ReasonReact.Router.url)
   | Redirect(string)
   | CompoundVerbDetail(string)
   | NotFound;
@@ -56,9 +56,12 @@ let getSearchParams = (url: ReasonReact.Router.url) =>
   |> Belt.List.fromArray
 
 let makeUrl = path => ReasonReact.Router.{
-  path: path |> Js.String.replaceByRe([%re "/^\/+|\/+$/g"], "") |> Js.String.split("/") |> Array.to_list,
+  path: (path |> Js.String.replaceByRe([%re "/^\/+|\?.*|\/+$/g"], "") |> Js.String.split("/")) -> Belt.Array.keep(s => s|>Js.String.trim|>Js.String.length>0) |> Array.to_list,
   hash: "",
-  search: ""
+  search: switch (path|>Js.String.split("?")) {
+  | [|_, search|] => search
+  | _ => ""
+  }
 };
 
 let string_of_url = (url: ReasonReact.Router.url) => {
@@ -71,7 +74,7 @@ let urlToRoute = (url: ReasonReact.Router.url) =>
   switch (url.path) {
   | [] => Redirect("/compverbs/")
   | ["index.html"] => Redirect("/compverbs/")
-  | ["compverbs"] => CompoundVerbs
+  | ["compverbs"] => CompoundVerbs(url)
   | ["compverbs", name] => CompoundVerbDetail(name)
   | _ => NotFound
   }

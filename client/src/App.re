@@ -17,7 +17,7 @@ type state = {
 };
 
 let routeToComponent = (route : Router.route) => switch (route) {
-  | CompoundVerbs => <VerbsListContainer />
+  | CompoundVerbs(url) => <VerbsListContainer url />
   | CompoundVerbDetail(name) => <VerbDetailContainer name />
   | Redirect(path) => <Redirect r=path />
   | NotFound => <NotFound />

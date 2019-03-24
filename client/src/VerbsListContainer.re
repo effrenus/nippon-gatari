@@ -2,7 +2,7 @@ open GqlQuery;
 
 let component = ReasonReact.statelessComponent("Nippon.VerbsList");
 
-let make = _children => {
+let make = (~url: ReasonReact.Router.url, _children) => {
     ...component,
     render: _ => {
       <GetAllVerbsComponent>
@@ -13,7 +13,7 @@ let make = _children => {
                | Error(error) =>
                   <div> {ReasonReact.string(error##message)} </div>
                | Data(response) =>
-                  <VerbPanel verbs=response##verbs />
+                  <VerbPanel url verbs=response##verbs />
                }
            }
       </GetAllVerbsComponent>;

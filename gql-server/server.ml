@@ -14,8 +14,9 @@ let make_response_compressed ~headers body =
   let body' = Ezgzip.compress body in
   let len = Bytes.length (Bytes.of_string body') in
   let headers' = Cohttp.Header.add_list headers [
-    ("Content-Length", string_of_int(len));
-    ("Content-Encoding", "gzip")
+    "Content-Length", string_of_int(len);
+    "Access-Control-Allow-Origin", "*";
+    "Content-Encoding", "gzip"
   ] in
   
   `Expert (Cohttp.Response.make ~status:`OK ~headers:headers' (), fun _in oc -> body' |> Lwt_io.write oc >>= fun () ->  Lwt_io.flush oc)
@@ -28,8 +29,8 @@ let cors_headers () =
     [
     "Access-Control-Allow-Origin", "*";
     "Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS";
-    "Access-Control-Allow-Credentials", "true";
-    "Access-Control-Allow-Headers", "content-type"
+    "Access-Control-Allow-Headers", "content-type";
+    "Content-Length", "0"
     ]
 
 let on_request conn req body =

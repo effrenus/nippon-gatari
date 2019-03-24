@@ -62,17 +62,15 @@ module Filter = {
                 ("word", filter.word)
                ])
             -> Belt.List.reduce("", (acc, (k, v)) => acc ++ "&" ++ (switch v {  | None => "" | Some(d) => k ++ "=" ++ d }))
-            -> Js.String.substr(~from=1);
+            |> Js.String.replaceByRe([%re "/^&+|&+$/g"], "");
 
         Router.string_of_url({...url, search: params})
         -> Router.pushSilentUnsafe
     }
 
-    let restore = () => {
+    let restore = url => {
         open Belt;
-        let searchParams =
-            ReasonReact.Router.dangerouslyGetInitialUrl()
-            |> Router.getSearchParams;
+        let searchParams = url |> Router.getSearchParams;
         let kCmp = (a, b) => a == b;
 
         {
@@ -98,7 +96,7 @@ let onSearchInput = (event, {ReasonReact.send}) =>
 
 let component = ReasonReact.reducerComponent("Nippon.VerbPanel");
 
-let make = (~verbs, _children) => {
+let make = (~verbs, ~url, _children) => {
     ...component,
     reducer: (action, state) => switch (action) {
     | UpdateFilter(action') => {
@@ -108,9 +106,9 @@ let make = (~verbs, _children) => {
     | HighliteVerb(index) => ReasonReact.Update({ ...state, highliteVerbIndex: Some(index) })
     },
     initialState: () => {
-        filter: Filter.restore(), highliteVerbIndex: None,
+        filter: Filter.restore(url), highliteVerbIndex: None,
     },
-    willReceiveProps: self => {...self.state, filter: Filter.restore()},
+    willReceiveProps: self => {...self.state, filter: Filter.restore(url)},
     render: ({ state, send, handle }) => {
         let perPage = 15;
         let filteredVerbs = Filter.apply(verbs, state.filter);
@@ -118,9 +116,19 @@ let make = (~verbs, _children) => {
         let visibleVerbs = filteredVerbs->Belt.Array.slice(~offset=(page-1)*perPage, ~len=perPage);
 
         <section className=Styles.wrap>
+            <Helmet>
+                <title>{j|Словарь составных (複合動詞) глаголов японского языка|j}->ReasonReact.string</title>
+                <meta property="description" content={j|Словарь по составным (сложным) глаголам японского языка. 複合動詞 (ふくごうどうし）|j} />
+                <meta property="keywords" content={j|словарь, составные глаголы, 複合動詞, японский язык, примеры, значение глаголов, ниппон гатари|j} />
+                <meta property="og:locale" content="ru" />
+                <meta property="og:title" content={j|Словарь составных глаголов|j} />
+                <meta property="og:url" content="/compverbs/" />
+                <meta property="og:description" content={j|Словарь по составным (сложным) глаголам японского языка. 複合動詞 (ふくごうどうし）|j} />
+                <meta property="og:type" content="website" />
+                <meta name="author" content={j|Олеся Гончар|j} />
+            </Helmet>
             <header className=Styles.head>
                 <h1 className=Styles.header>{j|Словарь составных глаголов|j}->ReasonReact.string</h1>
-                <span className=Styles.subheader>{j|под редакцией |j}->ReasonReact.string <a href="http://www.nippon-gatari.info/" target="_blank">{j|Олеси Гончар|j}->ReasonReact.string</a></span>
             </header>
             <section className=Styles.panel>
                 <div className=Styles.listWrap>
@@ -147,6 +155,11 @@ let make = (~verbs, _children) => {
 
                 <Cards verbs=visibleVerbs highliteVerbIndex=state.highliteVerbIndex />
             </section>
+
+            <span className=Styles.editor>
+                {j|под редакцией |j}->ReasonReact.string 
+                <a href="http://www.nippon-gatari.info/" target="_blank"><b>{j|Олеси Гончар|j}->ReasonReact.string</b></a>
+            </span>
         </section>
     }
 }

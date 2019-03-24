@@ -1,12 +1,13 @@
 {
   "name": "nippon-gatari-client",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack -w",
+    "webpack:test": "webpack",
     "webpack:production": "NODE_ENV=production webpack",
     "server": "webpack-dev-server"
   },
@@ -24,16 +25,17 @@
     "bs-css": "^8.0.1",
     "bs-express": "^0.10.0",
     "bs-json": "^1.0.1",
+    "bs-platform": "4.0.6",
     "bs-webapi": "^0.13.4",
     "hepburn": "^1.1.1",
     "isomorphic-unfetch": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "reason-apollo": "^0.15.2",
     "reason-react": ">=0.4.0"
   },
   "devDependencies": {
-    "bs-platform": "^4.0.18",
     "graphql_ppx": "^0.2.8",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.0.1",
