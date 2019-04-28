@@ -14,6 +14,7 @@ module GetAllVerbsGql = [%graphql
           in_kana
           translation
         }
+        synonyms
     }
   }
 |}];
@@ -36,6 +37,7 @@ module GetVerbGql = [%graphql
         in_kana
         translation
       }
+      synonyms
     }
   }
 |}];

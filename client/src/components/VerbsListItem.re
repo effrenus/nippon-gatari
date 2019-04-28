@@ -15,6 +15,7 @@ let make = (~verb, ~onClick, _children) => {
             switch (verb##transitivity_type) {
             | "tr." => <TransitivityLabels.TransitiveLabel/>
             | "intr." => <TransitivityLabels.IntransitiveLabel/>
+            | "dual" => <TransitivityLabels.DualLabel/>
             | _ => "?"->ReasonReact.string
             }
           }

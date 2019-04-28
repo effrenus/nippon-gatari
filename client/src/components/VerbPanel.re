@@ -115,21 +115,17 @@ let make = (~verbs, ~url, _children) => {
         let page = max(1, min((state.filter.page), (Js.Array.length(filteredVerbs)->float_of_int /. perPage->float_of_int)->ceil->int_of_float));
         let visibleVerbs = filteredVerbs->Belt.Array.slice(~offset=(page-1)*perPage, ~len=perPage);
 
-        <section className=Styles.wrap>
+        <>
             <Helmet>
                 <title>{j|Словарь составных (複合動詞) глаголов японского языка|j}->ReasonReact.string</title>
-                <meta property="description" content={j|Словарь по составным (сложным) глаголам японского языка. 複合動詞 (ふくごうどうし）|j} />
-                <meta property="keywords" content={j|словарь, составные глаголы, 複合動詞, японский язык, примеры, значение глаголов, ниппон гатари|j} />
+                <meta name="description" content={j|Словарь по составным (сложным) глаголам японского языка. 複合動詞 (ふくごうどうし）|j} />
+                <meta name="keywords" content={j|словарь, составные глаголы, 複合動詞, японский язык, примеры, значение глаголов, ниппон гатари|j} />
                 <meta property="og:locale" content="ru" />
                 <meta property="og:title" content={j|Словарь составных глаголов|j} />
                 <meta property="og:url" content="/compverbs/" />
                 <meta property="og:description" content={j|Словарь по составным (сложным) глаголам японского языка. 複合動詞 (ふくごうどうし）|j} />
                 <meta property="og:type" content="website" />
-                <meta name="author" content={j|Олеся Гончар|j} />
             </Helmet>
-            <header className=Styles.head>
-                <h1 className=Styles.header>{j|Словарь составных глаголов|j}->ReasonReact.string</h1>
-            </header>
             <section className=Styles.panel>
                 <div className=Styles.listWrap>
                     <div className=Styles.filter>
@@ -160,6 +156,6 @@ let make = (~verbs, ~url, _children) => {
                 {j|под редакцией |j}->ReasonReact.string 
                 <a href="http://www.nippon-gatari.info/" target="_blank"><b>{j|Олеси Гончар|j}->ReasonReact.string</b></a>
             </span>
-        </section>
+        </>
     }
 }

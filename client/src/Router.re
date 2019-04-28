@@ -26,8 +26,9 @@ module Link = {
 
 type route =
   | CompoundVerbs(ReasonReact.Router.url)
-  | Redirect(string)
   | CompoundVerbDetail(string)
+  | CompoundVerbAbout
+  | Redirect(string)
   | NotFound;
 
 [@bs.send]
@@ -75,6 +76,7 @@ let urlToRoute = (url: ReasonReact.Router.url) =>
   | [] => Redirect("/compverbs/")
   | ["index.html"] => Redirect("/compverbs/")
   | ["compverbs"] => CompoundVerbs(url)
+  | ["compverbs", "about"] => CompoundVerbAbout
   | ["compverbs", name] => CompoundVerbDetail(name)
   | _ => NotFound
   }

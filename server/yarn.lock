@@ -1244,19 +1244,21 @@ negotiator@0.6.1:
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
   integrity sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
 
-nippon-gatari-client@^1.0.1:
-  version "1.0.1"
-  resolved "https://npm-proxy.fury.io/1m7v3F-DnXmjPral7B9wcv3WMwUESvdbwE/effrenus/~/d/nippon-gatari-client/nippon-gatari-client-1.0.1#114ce9668f613fba05d44c63b4fd0ba20885e72e"
-  integrity sha1-EUzpZo9hP7oF1ExjtP0LogiF5y4=
+nippon-gatari-client@^1.1.0:
+  version "1.1.2"
+  resolved "https://npm-proxy.fury.io/1m7v3F-DnXmjPral7B9wcv3WMwUESvdbwE/effrenus/~/d/nippon-gatari-client/nippon-gatari-client-1.1.2#fa916382a894aacaccf3b4a3fb91fcbf873f0ea4"
+  integrity sha1-+pFjgqiUqsrM87Sj+5H8v4c/DqQ=
   dependencies:
     bs-css "^8.0.1"
     bs-express "^0.10.0"
     bs-json "^1.0.1"
+    bs-platform "4.0.6"
     bs-webapi "^0.13.4"
     hepburn "^1.1.1"
     isomorphic-unfetch "^3.0.0"
     react "^16.2.0"
     react-dom "^16.2.0"
+    react-helmet "^5.2.0"
     reason-apollo "^0.15.2"
     reason-react ">=0.4.0"
 

@@ -10,13 +10,25 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   output: {
     path: outputDir,
-    filename: 'Index.js'
+    filename: 'Index.js',
+    chunkFilename: '[name].js'
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.GQL_URI': JSON.stringify(isProd ? "/graphql" : "http://localhost:8080/graphql")
     })
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/](react|apollo)/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  },
   devServer: {
     compress: true,
     contentBase: outputDir,

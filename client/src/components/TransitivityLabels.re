@@ -14,6 +14,13 @@ module Styles = {
         backgroundColor(`hex("d5e6ff")),
         fontSize(rem(0.9)),
     ]);
+
+    let transitivity_dual = style([
+        padding2(~v=px(5), ~h=px(3)),
+        borderRadius(px(4)),
+        backgroundColor(`hex("b8fff9")),
+        fontSize(rem(0.9)),
+    ]);
 };
 
 module TransitiveLabel = {
@@ -29,5 +36,13 @@ module IntransitiveLabel = {
   let make = _ => {
     ...component,
     render: _ => <span title={j|непереходный глагол|j} className=Styles.transitivity_intr>{j|自|j}->ReasonReact.string</span>
+  }
+}
+
+module DualLabel = {
+  let component = ReasonReact.statelessComponent("Nippon.DualLabel");
+  let make = _ => {
+    ...component,
+    render: _ => <span title={j|(не)переходный глагол|j} className=Styles.transitivity_dual>{j|自 | 他|j}->ReasonReact.string</span>
   }
 }

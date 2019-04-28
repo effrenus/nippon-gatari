@@ -107,6 +107,23 @@ module Styles = {
         hover([
             textDecoration(`underline),
         ])
+    ]);
+
+    let synonyms = style([
+        marginLeft(px(10)),
+        padding(px(0)),
+        paddingTop(px(5)),
+        borderTop(px(1), `solid, `hex("EEE")),
+        fontSize(rem(0.9)),
+
+        before([
+            contentRule({j|Синонимы: |j})
+        ]),
+
+        `selector("li", [
+            display(`inlineBlock),
+            marginRight(px(5))
+        ])
     ])
 }
 
@@ -211,6 +228,18 @@ let make = (~verb, ~highlite=false, _children) => {
                 }
                 </div>
                 };
+            }
+            {
+                switch (verb##synonyms) {
+                | None => ReasonReact.null
+                | Some(synonyms) =>
+                <ul className=Styles.synonyms>
+                ...{
+                    synonyms
+                    |> Js.Array.map(s => <li>s->ReasonReact.string</li>)
+                }
+                </ul>
+                }
             }
         </div>
         <div className=Styles.struct_>

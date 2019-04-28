@@ -52,7 +52,9 @@ let verb = Schema.(obj "verb"
       ~args:Arg.[]
       ~doc:"Synonyms"
       ~typ:(list (non_null string))
-      ~resolve:(fun _ p -> p.Compverb.synonyms)
+      ~resolve:(fun _ p -> (match p.Compverb.synonyms with 
+        | None -> None 
+        | Some l -> Some (List.map (fun (v: Compverb.synonym) -> v.in_kanji) l)))
     ;
     field "struct_parts"
       ~args:Arg.[]

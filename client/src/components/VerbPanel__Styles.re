@@ -1,11 +1,5 @@
 open Css;
 
-let wrap = style([
-    maxWidth(px(1500)),
-    margin(`auto),
-    padding4(~top=px(15), ~right=px(30), ~left=px(30), ~bottom=px(30)),
-]);
-
 let head = style([
     marginBottom(px(20)),
 ]);

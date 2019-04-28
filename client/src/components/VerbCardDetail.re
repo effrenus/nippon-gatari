@@ -1,12 +1,6 @@
 module Styles = {
     open Css;
 
-    let wrap = style([
-        maxWidth(px(1500)),
-        margin(`auto),
-        padding4(~top=px(15), ~right=px(30), ~left=px(30), ~bottom=px(30)),
-    ]);
-
     let card = style([
         display(`flex),
         justifyContent(`spaceBetween),
@@ -21,6 +15,7 @@ module Styles = {
     let head = style([
         width(px(170)),
         maxWidth(px(170)),
+        marginRight(px(15)),
     ]);
 
     let body = style([
@@ -101,6 +96,7 @@ module Styles = {
     let title = style([
         marginTop(px(0)),
         marginBottom(px(10)),
+        borderBottom(px(3), `solid, `hex("cfd9df")),
         fontWeight(`normal),
         fontSize(rem(1.7)),
     ]);
@@ -133,6 +129,25 @@ module Styles = {
             contentRule({j|←|j}),
             fontSize(rem(1.8)),
         ])
+    ]);
+
+    let synonyms = style([
+        marginTop(px(30)),
+        paddingTop(px(5)),
+        borderTop(px(1), `solid, `hex("b5c5f7")),
+        
+        `selector("h3", [
+            marginBottom(px(5)),
+            fontSize(rem(0.9)),
+        ]),
+        `selector("ul", [
+            margin(px(0)),
+            padding(px(0)),
+            listStyleType(`none),
+        ]),
+        `selector("li", [
+            marginBottom(px(5)),
+        ]),
     ])
 }
 
@@ -216,7 +231,7 @@ let component = ReasonReact.statelessComponent("Nippon.VerbCardDetail");
 let make = (~verb, _children) => {
     ...component,
     render: _ => {
-      <div className=Styles.wrap>
+      <>
         <Router.Link className=Styles.backLink href="/compverbs/">{{j|к общему списку|j}->ReasonReact.string}</Router.Link>
         <article className=Styles.card>
             {
@@ -225,20 +240,35 @@ let make = (~verb, _children) => {
                 let defs = verb##definitions|>Js.Array.joinWith("; ");
                 <Helmet>
                     <title>{j|$kanji・$kana — значение слова, примеры. Словарь составных глаголов|j}->ReasonReact.string</title>
-                    <meta property="description" content={j|$kanji・$kana — $defs. Примеры|j} />
-                    <meta property="keywords" content={j|значение слова, $kanji, $kana, примеры, словарь, составные глаголы, 複合動詞, обучение, японский язык, ниппонгатари|j} />
+                    <meta name="description" content={j|$kanji・$kana — $defs. Примеры|j} />
+                    <meta name="keywords" content={j|значение слова, $kanji, $kana, примеры, словарь, составные глаголы, 複合動詞, обучение, японский язык, ниппонгатари|j} />
                     <meta property="og:locale" content="ru" />
                     <meta property="og:type" content="article" />
                     <meta property="og:url" content={j|/compverbs/$kana/|j} />
                     <meta property="og:title" content={j|$kanji・$kana — значение слова, примеры. Словарь составных глаголов|j} />
                     <meta property="og:description" content={j|$kanji・$kana — $defs. Примеры.|j} />
-                    <meta name="author" content={j|Олеся Гончар|j} />
                 </Helmet>
             }
             <header className=Styles.head>
                 <h1 className=Styles.title>{verb##in_kanji->ReasonReact.string}</h1>
                 <span className=Styles.kana>{verb##in_kana->ReasonReact.string}</span>
                 <span className=Styles.romaji>{Hepburn.romajiOfKana(verb##in_kana)->Js.String.toLowerCase->ReasonReact.string}</span>
+
+                {
+                    switch (verb##synonyms) {
+                    | None => ReasonReact.null
+                    | Some(synonyms) =>
+                    <div className=Styles.synonyms>
+                        <h3>{j|Синонимы|j}->ReasonReact.string</h3>
+                        <ul>
+                        ...{
+                            synonyms
+                            |> Js.Array.map(s => <li>s->ReasonReact.string</li>)
+                        }
+                        </ul>
+                    </div>
+                    }
+                }
             </header>
             <div className=Styles.body>
                 <Definitions definitions=verb##definitions examples=verb##examples />
@@ -266,6 +296,6 @@ let make = (~verb, _children) => {
                 </ul>
             </div>
         </article>
-      </div>
+      </>
     },
   };

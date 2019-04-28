@@ -11,3 +11,4 @@ client/lib/
 server/_build/
 server/lib/
 gql-server/_build/
+server/assets/*.js
