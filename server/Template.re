@@ -34,6 +34,7 @@ let render = (html, ~apolloState, ~helmet) => page(
         <script>
         window.__APOLLO_STATE__ = $apolloState;
         </script>
+        <script src="/assets/vendors.js"></script>
         <script src="/assets/Index.js"></script>
     |j}
 )

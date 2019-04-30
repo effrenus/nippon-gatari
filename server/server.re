@@ -13,16 +13,17 @@ Static.make("./", Static.defaultOptions());
 
 App.get(app, ~path="/*") @@
 PromiseMiddleware.from((_next, req, res) => {
-    let clientApp = <Client.App getInitUrl={() => Client.Router.makeUrl(req->Request.originalUrl)} />;
+  let apolloClient = ReasonApollo.createApolloClient(~link=Client.GqlClient.httpLink, ~cache=ApolloInMemoryCache.createInMemoryCache(), ());
+  let clientApp = <Client.App apolloClient=apolloClient getInitUrl={() => Client.Router.makeUrl(req->Request.originalUrl)} />;
 
     Js.Promise.(
       Client.GqlClient.getDataFromTree(clientApp)
       |> then_(() => {
-          res 
+          res
           |> Response.sendString(
               Template.render(
                 renderStylesToString(clientApp->ReactDOMServerRe.renderToString),
-                ~apolloState=Client.GqlClient.instance->Client.GqlClient.extract->Js.Json.stringifyAny,
+                ~apolloState=apolloClient->Client.GqlClient.extract->Js.Json.stringifyAny,
                 ~helmet=Client.Helmet.renderStatic()
               )
           )

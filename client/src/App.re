@@ -62,7 +62,7 @@ let routeToComponent = (route : Router.route) => switch (route) {
 
 let component = ReasonReact.reducerComponent("Nippon.App");
 
-let make = (~getInitUrl=?, _children) => {
+let make = (~getInitUrl=?, ~apolloClient=GqlClient.instance, _children) => {
   ...component,
   initialState: () => { route: Router.urlToRoute(switch (getInitUrl) { | None => ReasonReact.Router.dangerouslyGetInitialUrl() | Some(f) => f() }) },
   reducer: (action, _state) => 
@@ -86,7 +86,7 @@ let make = (~getInitUrl=?, _children) => {
         <Router.Link className=Styles.navLink href="/compverbs/about/">{{j|О словаре|j}->ReasonReact.string}</Router.Link>
       </header>
         
-      <ReasonApollo.Provider client=GqlClient.instance>
+      <ReasonApollo.Provider client=apolloClient>
         comp
       </ReasonApollo.Provider>
     </section>
